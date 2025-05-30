@@ -130,3 +130,18 @@ WHERE title NOT ILIKE '%analyst%' AND title NOT ILIKE '%analytics%'
 --           `hard to fill` jobs is at the top. 
 --     - Which three industries are in the top 4 on this list? How many jobs 
 --            have been listed for more than 3 weeks for each of the top 4?
+SELECT domain, COUNT(*) AS hard_to_fill
+FROM data_analyst_jobs
+WHERE skill ILIKE '%sql%'
+  AND days_since_posting > 21
+  AND domain IS NOT NULL
+GROUP BY domain
+ORDER BY hard_to_fill DESC
+;
+----- "Internet & Software", "Banks & Financial Services", &    -----
+----- "Consulting & Business Services" are the industries with  -----
+----- the most hard to fill SQL jobs. With the following number -----
+----- or hard to fill jobs:                                     -----
+-----   -- Internet & Software: 62 hard to fill jobs            -----
+-----   -- Banks & Financial Services: 61 hard to fill jobs     -----
+-----   -- Consulting & Business Services: 57 hard to fill jobs -----
